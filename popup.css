@@ -1,0 +1,15 @@
+#word-definer-popup {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    max-width: 280px;
+    font-size: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    line-height: 1.5;
+}
+
+#word-definer-popup p {
+    margin: 6px 0 0;
+    color: #444;
+}
