@@ -1,15 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
 #word-definer-popup {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px 14px;
-    max-width: 280px;
-    font-size: 14px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    line-height: 1.5;
+    all: initial; /* Reset all styles so the host page's styles do not leak in */
+    box-sizing: border-box;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px) saturate(190%);
+    -webkit-backdrop-filter: blur(12px) saturate(190%);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 12px;
+    padding: 14px 18px;
+    max-width: 320px;
+    box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.1), 
+        0 8px 10px -6px rgba(0, 0, 0, 0.1),
+        0 0 1px 1px rgba(255, 255, 255, 0.5) inset;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    /* Animation */
+    transform-origin: top left;
+    animation: wordDefinerFadeIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-#word-definer-popup p {
-    margin: 6px 0 0;
-    color: #444;
+#word-definer-popup * {
+    box-sizing: border-box;
+}
+
+.word-definer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    padding-bottom: 6px;
+}
+
+.word-definer-word {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+    text-transform: capitalize;
+}
+
+.word-definer-pos {
+    font-size: 11px;
+    font-weight: 500;
+    color: #6366f1;
+    background: #e0e7ff;
+    padding: 2px 6px;
+    border-radius: 6px;
+    text-transform: lowercase;
+    font-style: italic;
+}
+
+.word-definer-definition {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #334155;
+    font-weight: 400;
+}
+
+@keyframes wordDefinerFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }

@@ -5,6 +5,12 @@
     "permissions": [
         "activeTab"
     ],
+    "host_permissions": [
+        "https://api.dictionaryapi.dev/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "content_scripts": [
         {
             "matches": [
