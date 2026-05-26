@@ -33,7 +33,7 @@ function fetchAndNotify(word) {
             const pos = meaning?.partOfSpeech;
             
             if (definition) {
-                chrome.notifications.create({
+                chrome.notifications.create("", {
                     type: 'basic',
                     iconUrl: 'icon.png',
                     title: `${word} (${pos})`,
@@ -51,7 +51,7 @@ function fetchAndNotify(word) {
 }
 
 function showErrorNotification(word) {
-    chrome.notifications.create({
+    chrome.notifications.create("", {
         type: 'basic',
         iconUrl: 'icon.png',
         title: `Word Not Found`,
