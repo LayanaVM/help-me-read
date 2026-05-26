@@ -24,37 +24,42 @@ document.addEventListener('mouseup', (e) => {
     }
 
     console.log("Sending query to background service worker...");
-    chrome.runtime.sendMessage({ action: 'getDefinition', word: cleanWord }, (response) => {
-        if (chrome.runtime.lastError) {
-            console.error("Error contacting background script:", chrome.runtime.lastError);
-            console.warn("Hint: Make sure to refresh the page after reloading/re-installing the extension.");
-            return;
-        }
+    try {
+        chrome.runtime.sendMessage({ action: 'getDefinition', word: cleanWord }, (response) => {
+            if (chrome.runtime.lastError) {
+                console.error("Error contacting background script:", chrome.runtime.lastError);
+                console.warn("Hint: Make sure to refresh the page after reloading/re-installing the extension.");
+                return;
+            }
 
-        console.log("Background response received:", response);
+            console.log("Background response received:", response);
 
-        if (!response || !response.success || !response.data) {
-            console.log("Definition search failed.");
-            showErrorPopup(cleanWord, e.pageX, e.pageY);
-            return;
-        }
+            if (!response || !response.success || !response.data) {
+                console.log("Definition search failed.");
+                showErrorPopup(cleanWord, e.pageX, e.pageY);
+                return;
+            }
 
-        const data = response.data;
-        const meaning = data[0]?.meanings?.[0];
-        if (!meaning) {
-            showErrorPopup(cleanWord, e.pageX, e.pageY);
-            return;
-        }
+            const data = response.data;
+            const meaning = data[0]?.meanings?.[0];
+            if (!meaning) {
+                showErrorPopup(cleanWord, e.pageX, e.pageY);
+                return;
+            }
 
-        const definition = meaning.definitions[0]?.definition;
-        const partOfSpeech = meaning.partOfSpeech;
+            const definition = meaning.definitions[0]?.definition;
+            const partOfSpeech = meaning.partOfSpeech;
 
-        if (definition) {
-            showPopup(cleanWord, partOfSpeech, definition, e.pageX, e.pageY);
-        } else {
-            showErrorPopup(cleanWord, e.pageX, e.pageY);
-        }
-    });
+            if (definition) {
+                showPopup(cleanWord, partOfSpeech, definition, e.pageX, e.pageY);
+            } else {
+                showErrorPopup(cleanWord, e.pageX, e.pageY);
+            }
+        });
+    } catch (err) {
+        console.warn("Word Definer Extension: Could not communicate with background service worker. (Context might have been invalidated after reloading the extension).");
+        console.warn("Please refresh this tab to reactivate the extension. Error details:", err.message);
+    }
 });
 
 function showPopup(word, pos, def, x, y) {
