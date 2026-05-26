@@ -1,8 +1,10 @@
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.contextMenus.create({
-        id: "defineWord",
-        title: "Define '%s'",
-        contexts: ["selection"]
+    chrome.contextMenus.removeAll(() => {
+        chrome.contextMenus.create({
+            id: "defineWord",
+            title: "Define '%s'",
+            contexts: ["selection"]
+        });
     });
 });
 
