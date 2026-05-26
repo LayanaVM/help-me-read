@@ -3,13 +3,18 @@
     "name": "Word Definer",
     "version": "1.0",
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "contextMenus",
+        "notifications"
     ],
     "host_permissions": [
         "https://api.dictionaryapi.dev/*"
     ],
     "background": {
         "service_worker": "background.js"
+    },
+    "icons": {
+        "128": "icon.png"
     },
     "content_scripts": [
         {
